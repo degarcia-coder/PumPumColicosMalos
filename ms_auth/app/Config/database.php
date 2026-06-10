@@ -3,6 +3,7 @@
 namespace App\Config;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Dotenv\Dotenv;
 
 $capsule = new Capsule;
 

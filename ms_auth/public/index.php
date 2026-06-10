@@ -1,5 +1,7 @@
 <?php
+
 use Slim\Factory\AppFactory;
+use MsCore\Middlewares\CorsMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -8,22 +10,13 @@ $dotenv->load();
 
 require __DIR__ . '/../app/Config/Database.php';
 
+$routes = require __DIR__ . '/../app/auth/Routes/endpoints.php';
+
 $app = AppFactory::create();
 
-$app->addBodyParsingMiddleware();
+$app->options('/{routes:.+}', fn($req, $res) => $res);
+$app->add(new CorsMiddleware());
 
-$app->add(function ($request, $handler) {
-    $response = $handler->handle($request);
-    return $response
-        ->withHeader('Access-Control-Allow-Origin', '*')
-        ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-});
-
-$app->options('/{routes:.+}', function ($request, $response) {
-    return $response;
-});
-
-require __DIR__ . '/../app/Routes/routes.php';
+$routes($app);
 
 $app->run();

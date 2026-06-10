@@ -26,7 +26,7 @@ try {
     http_response_code(503);
     header('Content-Type: application/json');
     echo json_encode([
-        "error" => "No se pudo conectar a la base de datos."
+        "error" => "No se puede conectar a la base de datos."
     ]);
     exit;
 }

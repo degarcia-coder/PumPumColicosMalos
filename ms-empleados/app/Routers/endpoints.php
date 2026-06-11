@@ -1,11 +1,14 @@
 <?php
-use Slim\Routing\RouteCollectorProxy;
-use App\Handlers\authHandler;
+
+use App\Controllers\EmpleadoController;
 use Slim\App;
 
 return function (App $app) {
-    $app->post('/auth/ingreso', [AuthHandler::class, 'ingreso']);
-    $app->post('/auth/salida', [AuthHandler::class, 'salida']);
-    $app->post('/auth/validar', [AuthHandler::class, 'validar']);
-    $app->post('/auth/validar', [AuthHandler::class, 'validar']);
+    $app->get('/empleados', [EmpleadoController::class, 'listar']);
+
+    $app->post('/empleados', [EmpleadoController::class, 'crear']);
+
+    $app->put('/empleados/{id}', [EmpleadoController::class, 'editar']);
+
+    $app->patch('/empleados/{id}/estado', [EmpleadoController::class, 'cambiarEstado']);
 };

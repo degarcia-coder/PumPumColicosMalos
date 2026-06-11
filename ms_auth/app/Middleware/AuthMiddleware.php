@@ -9,7 +9,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as Handler;
 use Slim\Psr7\Response as SlimResponse;
 
-class CorsMiddleware implements MiddlewareInterface
+class AuthMiddleware implements MiddlewareInterface
 {
     // Rutas que no necesitan token
     private array $rutasPublicas = [

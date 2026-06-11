@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use App\Models\Usuario;
+use App\Models\ModelosUsuario;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-class controllerauth
+class AuthController
 {
     // POST/login
     public function login(Request $request, Response $response): Response
@@ -24,7 +24,7 @@ class controllerauth
         }
 
         // Busca por usuario o por correo
-        $usuario = Usuario::where(function ($query) use ($identificador) {
+        $usuario = ModelosUsuario::where(function ($query) use ($identificador) {
             $query->where('usuario', $identificador)
                   ->orWhere('correo', $identificador);
         })->where('estado', 'activo')->first();

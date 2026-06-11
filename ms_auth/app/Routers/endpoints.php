@@ -1,10 +1,10 @@
 <?php
-use Slim\Routing\RouteCollectorProxy;
-use App\Handlers\authHandler;
+
+use App\Controllers\AuthController;
 use Slim\App;
 
 return function (App $app) {
-    $app->post('/auth/ingreso', [AuthHandler::class, 'ingreso']);
-    $app->post('/auth/salida', [AuthHandler::class, 'salida']);
-    $app->post('/auth/validar', [AuthHandler::class, 'validar']);
+    $app->post('/auth/ingreso', [AuthController::class, 'login']);
+    $app->post('/auth/salida',   [AuthController::class, 'logout']);
+    $app->get('/auth/validar',  [AuthController::class, 'validate']);
 };

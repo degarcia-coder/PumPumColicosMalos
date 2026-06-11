@@ -1,0 +1,44 @@
+### Listar incapacidades
+GET http://localhost:8003/incapacidades
+Authorization: Bearer {token}
+
+### Buscar por empleado
+GET http://localhost:8003/incapacidades?empleado_id=1
+Authorization: Bearer {token}
+
+### Buscar por estado
+GET http://localhost:8003/incapacidades?estado=aprobada
+Authorization: Bearer {token}
+
+### Buscar por tipo
+GET http://localhost:8003/incapacidades?tipo=enfermedad_general
+Authorization: Bearer {token}
+
+### Registrar incapacidad
+POST http://localhost:8003/incapacidades
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+    "empleado_id": 1,
+    "fecha_inicio": "2026-06-15",
+    "fecha_fin": "2026-06-20",
+    "tipo": "enfermedad_general",
+    "diagnostico_general": "Gripa severa",
+    "entidad_medica": "Clinica Central",
+    "observaciones": "Reposo total"
+}
+
+### Editar incapacidad
+PUT http://localhost:8003/incapacidades/1
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+    "observaciones": "Reposo actualizado",
+    "fecha_fin": "2026-06-22"
+}
+
+### Finalizar incapacidad
+PATCH http://localhost:8003/incapacidades/1/finalizar
+Authorization: Bearer {token}

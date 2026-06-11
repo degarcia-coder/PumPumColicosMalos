@@ -1,0 +1,35 @@
+### Listar seguimientos
+GET http://localhost:8004/seguimientos
+Authorization: Bearer {token}
+
+### Buscar por incapacidad
+GET http://localhost:8004/seguimientos?incapacidad_id=1
+Authorization: Bearer {token}
+
+### Buscar por estado
+GET http://localhost:8004/seguimientos?estado=aprobada
+Authorization: Bearer {token}
+
+### Registrar seguimiento
+POST http://localhost:8004/seguimientos
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+    "incapacidad_id": 1,
+    "fecha": "2026-06-11",
+    "comentario": "Revisión de documentos médicos completada",
+    "estado": "en_revision",
+    "usuario_responsable": "gestionhumana"
+}
+
+### Actualizar estado
+PATCH http://localhost:8004/seguimientos/1/estado
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+    "comentario": "Incapacidad aprobada luego de revisión",
+    "estado": "aprobada",
+    "usuario_responsable": "admin"
+}

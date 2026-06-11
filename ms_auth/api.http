@@ -1,0 +1,16 @@
+### Login
+POST http://localhost:8001/auth/ingreso
+Content-Type: application/json
+
+{
+    "usuario": "admin",
+    "contrasena": "admin123"
+}
+
+### Logout
+POST http://localhost:8001/auth/salida
+Authorization: Bearer {token}
+
+### Validar sesión
+GET http://localhost:8001/auth/validar
+Authorization: Bearer {token}

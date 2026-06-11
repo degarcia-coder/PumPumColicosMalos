@@ -1,0 +1,50 @@
+### Listar empleados
+GET http://localhost:8002/empleados
+Authorization: Bearer {token}
+
+### Buscar por área
+GET http://localhost:8002/empleados?area=Tecnologia
+Authorization: Bearer {token}
+
+### Buscar por estado
+GET http://localhost:8002/empleados?estado=activo
+Authorization: Bearer {token}
+
+### Buscar por documento
+GET http://localhost:8002/empleados?documento=1000123456
+Authorization: Bearer {token}
+
+### Crear empleado
+POST http://localhost:8002/empleados
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+    "nombres": "Juan",
+    "apellidos": "Perez",
+    "documento": "1000999888",
+    "correo": "juan@empresa.com",
+    "telefono": "3001112233",
+    "cargo": "Desarrollador",
+    "area": "Tecnologia",
+    "fecha_ingreso": "2026-06-11"
+}
+
+### Editar empleado
+PUT http://localhost:8002/empleados/1
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+    "cargo": "Desarrollador Senior",
+    "area": "Tecnologia"
+}
+
+### Cambiar estado
+PATCH http://localhost:8002/empleados/1/estado
+Content-Type: application/json
+Authorization: Bearer {token}
+
+{
+    "estado": "inactivo"
+}

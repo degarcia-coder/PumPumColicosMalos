@@ -1,5 +1,5 @@
 {
-    "name": "ms-seguimiento",
+    "name": "microservicios/ms-seguimiento",
     "description": "Microservicio de seguimiento de incapacidades",
     "type": "project",
     "require": {

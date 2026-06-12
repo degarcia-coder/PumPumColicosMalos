@@ -8,7 +8,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as Handler;
 use Slim\Psr7\Response as SlimResponse;
 
-class AuthMiddleware implements MiddlewareInterface
+class IncapacidadesMiddleware implements MiddlewareInterface
 {
     private array $rutasPublicas = [];
 

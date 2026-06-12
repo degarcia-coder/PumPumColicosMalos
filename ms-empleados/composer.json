@@ -1,5 +1,5 @@
 {
-    "name": "ms-empleados",
+    "name": "microservicios/ms-empleados",
     "description": "Microservicio de gestión de empleados",
     "type": "project",
     "require": {

@@ -3,15 +3,11 @@
 namespace App\Config;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use Dotenv\Dotenv;
 
 class Database
 {
     public static function init(): void
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
-        $dotenv->load();
-
         $capsule = new Capsule;
 
         $capsule->addConnection([

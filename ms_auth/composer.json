@@ -1,6 +1,5 @@
-
 {
-    "name": "ms-auth",
+    "name": "microservicios/ms-auth",
     "description": "Microservicio de autenticación",
     "type": "project",
     "require": {

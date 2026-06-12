@@ -1,5 +1,5 @@
 {
-    "name": "ms-incapacidades",
+    "name": "microservicios/ms-incapacidades",
     "description": "Microservicio de gestión de incapacidades",
     "type": "project",
     "require": {

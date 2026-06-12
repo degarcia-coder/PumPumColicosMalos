@@ -11,31 +11,25 @@ use Slim\Psr7\Response as SlimResponse;
 
 class AuthMiddleware implements MiddlewareInterface
 {
-    // Rutas que no necesitan token
     private array $rutasPublicas = [
         '/auth/ingreso'
     ];
 
     public function process(Request $request, Handler $handler): Response
     {
-        // 1. Maneja preflight OPTIONS
         if ($request->getMethod() === 'OPTIONS') {
-            $response = new SlimResponse();
-            return $this->addCorsHeaders($response);
+            return new SlimResponse();
         }
 
-        // 2. Si es ruta pública, no valida token
         $ruta = $request->getUri()->getPath();
         if (in_array($ruta, $this->rutasPublicas)) {
-            $response = $handler->handle($request);
-            return $this->addCorsHeaders($response);
+            return $handler->handle($request);
         }
 
-        // 3. Valida token para rutas protegidas
         $token = $request->getHeaderLine('Authorization');
 
         if (empty($token)) {
-            return $this->addCorsHeaders($this->unauthorized('Token no proporcionado'));
+            return $this->unauthorized('Token no proporcionado');
         }
 
         $token = str_replace('Bearer ', '', $token);
@@ -46,20 +40,11 @@ class AuthMiddleware implements MiddlewareInterface
             ->first();
 
         if (!$usuario) {
-            return $this->addCorsHeaders($this->unauthorized('Token inválido o sesión inactiva'));
+            return $this->unauthorized('Token inválido o sesión inactiva');
         }
 
         $request = $request->withAttribute('usuario', $usuario);
-        $response = $handler->handle($request);
-        return $this->addCorsHeaders($response);
-    }
-
-    private function addCorsHeaders(Response $response): Response
-    {
-        return $response
-            ->withHeader('Access-Control-Allow-Origin', '*')
-            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-            ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        return $handler->handle($request);
     }
 
     private function unauthorized(string $mensaje): Response

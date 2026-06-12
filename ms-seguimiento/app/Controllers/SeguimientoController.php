@@ -33,31 +33,6 @@ class SeguimientoController
             ], 400);
         }
 
-        // Validar existencia de incapacidad
-        $incapacidadExiste = \Illuminate\Database\Capsule\Manager::table('incapacidades')
-            ->where('id', $body['incapacidad_id'])
-            ->exists();
-
-        if (!$incapacidadExiste) {
-            return $this->json($response, [
-                'status'  => 'error',
-                'mensaje' => 'La incapacidad no existe'
-            ], 404);
-        }
-
-        // Validar usuario responsable
-        $usuarioExiste = \Illuminate\Database\Capsule\Manager::table('usuarios')
-            ->where('usuario', $body['usuario_responsable'])
-            ->where('estado', 'activo')
-            ->exists();
-
-        if (!$usuarioExiste) {
-            return $this->json($response, [
-                'status'  => 'error',
-                'mensaje' => 'El usuario responsable no existe o está inactivo'
-            ], 404);
-        }
-
         $seguimiento = Seguimiento::create($body);
 
         return $this->json($response, [
@@ -93,7 +68,7 @@ class SeguimientoController
         ], 200);
     }
 
-    // PATCH /seguimientos/{id}/estado - Actualizar estado de incapacidad
+    // PATCH /seguimientos/{id}/estado - Actualizar estado
     public function actualizarEstado(Request $request, Response $response, array $args): Response
     {
         $body = $request->getParsedBody();
@@ -113,23 +88,6 @@ class SeguimientoController
                 'mensaje' => 'Comentario y usuario responsable son obligatorios'
             ], 400);
         }
-
-        // Validar existencia de incapacidad
-        $incapacidad = \Illuminate\Database\Capsule\Manager::table('incapacidades')
-            ->where('id', $args['id'])
-            ->first();
-
-        if (!$incapacidad) {
-            return $this->json($response, [
-                'status'  => 'error',
-                'mensaje' => 'La incapacidad no existe'
-            ], 404);
-        }
-
-        // Actualizar estado en incapacidades
-        \Illuminate\Database\Capsule\Manager::table('incapacidades')
-            ->where('id', $args['id'])
-            ->update(['estado' => $body['estado']]);
 
         // Registrar el cambio en seguimientos
         $seguimiento = Seguimiento::create([
